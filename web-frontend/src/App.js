@@ -1,10 +1,17 @@
 import React, { Component } from 'react';
+import { Provider } from 'react-redux';
+import initialState from './store/initialState';
+import configureStore from './store/configureStore';
 import logo from './logo.svg';
 import './App.css';
+
+
+const store = configureStore(initialState);
 
 class App extends Component {
   render() {
     return (
+    <Provider store={store}>
       <div className="App">
         <div className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
@@ -14,7 +21,7 @@ class App extends Component {
           To get started, edit <code>src/App.js</code> and save to reload.
         </p>
       </div>
-    );
+    </Provider>);
   }
 }
 
