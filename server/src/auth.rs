@@ -18,6 +18,35 @@ fn check_password(password: &str, hash: &str) -> bool {
 }
 
 
+pub mod handlers {
+    use iron::prelude::*;
+    use iron::status;
+    use persistent::Read;
+    use bodyparser;
+    use serde_json;
+
+    use models::NewUser;
+    use super::hash_password;
+
+    #[derive(Deserialize, Debug, Clone)]
+    struct RegistrationData {
+        pub email: String,
+        pub display_name: String,
+        pub username: String,
+        pub password: String,
+    }
+
+    pub fn register(req: &mut Request)-> IronResult<Response> {
+        let maybe_data = req.get::<bodyparser::Struct<RegistrationData>>();
+        match maybe_data {
+            Ok(Some(data)) => println!("Parsed body:\n{:?}", data),
+            Ok(None) => println!("No body"),
+            Err(err) => println!("Error: {:?}", err)
+        }
+        Ok(Response::with(status::Ok))
+    }
+}
+
 #[cfg(test)]
 mod test {
     use super::*;

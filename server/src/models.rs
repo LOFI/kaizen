@@ -2,7 +2,6 @@ use super::schema::user;
 
 /// User represents a db record for a user account.
 #[derive(Queryable)]
-#[table_name="user"]
 pub struct User {
     pub id: i32,
     pub email: String,
