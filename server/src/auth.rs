@@ -19,10 +19,11 @@ fn check_password(password: &str, hash: &str) -> bool {
 
 
 pub mod handlers {
+    use bodyparser;
     use iron::prelude::*;
     use iron::status;
     use persistent::Read;
-    use bodyparser;
+    use router::Router;
     use serde_json;
 
     use models::NewUser;
@@ -44,6 +45,12 @@ pub mod handlers {
             Err(err) => println!("Error: {:?}", err)
         }
         Ok(Response::with(status::Ok))
+    }
+
+    pub fn username_search(req: &mut Request) -> IronResult<Response> {
+        let ref query = req.extensions.get::<Router>().unwrap().find("username").unwrap_or("/");
+
+        Ok(Response::with(status::NotFound))
     }
 }
 

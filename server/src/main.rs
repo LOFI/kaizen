@@ -23,10 +23,12 @@ mod auth;
 mod models;
 mod schema;
 
+use dotenv::dotenv;
 use iron::prelude::*;
 use iron::status;
 use persistent::Read;
 use router::Router;
+use std::env;
 
 // pardon my dust - these hello handlers are from the examples for iron and iron router and I'm
 // leaving them here until I figure out what I'm doing.
@@ -44,9 +46,17 @@ use router::Router;
 const MAX_BODY_LENGTH: usize = 1024 * 1024 * 2;
 
 fn main() {
+    dotenv().ok();
+    let prefix = match env::var("KAIZEN_API_ROOT") {
+        Ok(url) => url,
+        Err(_) => String::new()
+    };
 
     let router = router!(
-        register: post "/register" => auth::handlers::register,
+        register: post format!("{}{}", prefix.as_str(), "/auth/register") =>
+        auth::handlers::register,
+        search_usernames: get format!("{}{}", prefix.as_str(), "/auth/username/:username") =>
+            auth::handlers::username_search,
 
 //        dynamic: get "/hello/:blank" => hello_blank,
 //        hello: get "/hello" => hello_world,
