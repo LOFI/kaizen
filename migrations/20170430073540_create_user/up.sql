@@ -1,4 +1,4 @@
-CREATE TABLE "user" (
+CREATE TABLE users (
   id SERIAL PRIMARY KEY,
   email VARCHAR(254) NOT NULL,
   display_name VARCHAR(20) NOT NULL,
@@ -13,6 +13,6 @@ CREATE TABLE "user" (
   active BOOLEAN DEFAULT TRUE NOT NULL
 );
 
-CREATE UNIQUE INDEX user_email_idx ON "user" ((lower(email)));
-CREATE UNIQUE INDEX user_username_idx ON "user" ((lower(username)));
-CREATE INDEX user_active_idx ON "user" (active);
+CREATE UNIQUE INDEX user_email_idx ON users ((lower(email)));
+CREATE UNIQUE INDEX user_username_idx ON users ((lower(username)));
+CREATE INDEX user_active_idx ON users (active);

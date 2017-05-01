@@ -2,6 +2,7 @@ use super::schema::user;
 
 /// User represents a db record for a user account.
 #[derive(Queryable)]
+#[table_name="users"]
 pub struct User {
     pub id: i32,
     pub email: String,
@@ -17,7 +18,7 @@ pub struct User {
 
 /// NewUser is for collecting user input then inserting into the DB.
 #[derive(Insertable)]
-#[table_name="user"]
+#[table_name="users"]
 pub struct NewUser<'a> {
     pub email: &'a str,
     pub display_name: &'a str,
