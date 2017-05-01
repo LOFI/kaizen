@@ -1,8 +1,7 @@
-use super::schema::user;
+use super::schema::users;
 
 /// User represents a db record for a user account.
 #[derive(Queryable)]
-#[table_name="users"]
 pub struct User {
     pub id: i32,
     pub email: String,
