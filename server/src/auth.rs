@@ -37,12 +37,12 @@ pub mod handlers {
         pub password: String,
     }
 
-    pub fn register(req: &mut Request)-> IronResult<Response> {
+    pub fn register(req: &mut Request) -> IronResult<Response> {
         let maybe_data = req.get::<bodyparser::Struct<RegistrationData>>();
         match maybe_data {
             Ok(Some(data)) => println!("Parsed body:\n{:?}", data),
             Ok(None) => println!("No body"),
-            Err(err) => println!("Error: {:?}", err)
+            Err(err) => println!("Error: {:?}", err),
         }
         Ok(Response::with(status::Ok))
     }

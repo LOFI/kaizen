@@ -49,7 +49,7 @@ fn main() {
     dotenv().ok();
     let prefix = match env::var("KAIZEN_API_ROOT") {
         Ok(url) => url,
-        Err(_) => String::new()
+        Err(_) => String::new(),
     };
 
     let router = router!(
